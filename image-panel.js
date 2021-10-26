@@ -21,20 +21,16 @@ function inject_createViewer() {
 
       this.imageArray = new Array();
       this.imageArray[0] = new Image();
-      this.imageArray[0].src =
-        "https://loafwad.github.io/images/books/test_1.jpg";
+      this.imageArray[0].src = "images/books/test_1.jpg";
 
       this.imageArray[1] = new Image();
-      this.imageArray[1].src =
-        "https://loafwad.github.io/images/books/test_2.jpg";
+      this.imageArray[1].src = "images/books/test_2.jpg";
 
       this.imageArray[2] = new Image();
-      this.imageArray[2].src =
-        "https://loafwad.github.io/images/books/test_3.jpg";
+      this.imageArray[2].src = "images/books/test_3.jpg";
 
       this.imageArray[3] = new Image();
-      this.imageArray[3].src =
-        "https://loafwad.github.io/images/books/test_4.jpg";
+      this.imageArray[3].src = "images/books/test_4.jpg";
 
       this.nextButton.object3D.addEventListener("click", this.prevClick);
       this.prevButton.object3D.addEventListener("click", this.nextClick);
@@ -99,7 +95,7 @@ function mod_addViewer() {
     el.setAttribute("class", "interactable");
     el.setAttribute("hoverable-visuals", "");
     el.innerHTML =
-      "<a-image id='curr-image' src='/images/books/test_2.jpg' position='0.55 2 0'></a-image> <a-image id='prev-image' src='/images/books/test_1.jpg' position='-0.55 2 0'></a-image><a-entity id='box-blue' geometry='primitive: box' material='color: blue' position='0.7 2 0' scale='0.2 0.2 0.2'></a-entity><a-entity id='box-red' geometry='primitive: box' material='color: red' position='-0.7 2 0' scale='0.2 0.2 0.2'></a-entity>";
+      "<a-image id='curr-image' src='https://loafwad.github.io/images/books/test_1.jpg' position='0.55 2 0'></a-image> <a-image id='prev-image' src='https://loafwad.github.io/images/books/test_1.jpg' position='-0.55 2 0'></a-image><a-entity id='box-blue' geometry='primitive: box' material='color: blue' position='0.7 2 0' scale='0.2 0.2 0.2'></a-entity><a-entity id='box-red' geometry='primitive: box' material='color: red' position='-0.7 2 0' scale='0.2 0.2 0.2'></a-entity>";
     AFRAME.scenes[0].appendChild(el);
     console.log("added image-panel-viewer");
   } else {
