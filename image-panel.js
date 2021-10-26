@@ -1,16 +1,19 @@
 function inject_createViewer() {
+  console.log("//////// injected viewer ////////");
   AFRAME.registerComponent("image-panel-viewer", {
     schema: {},
 
     init: function () {
       // Do something when component first attached.
-      this.currImg = document.querySelector("#curr-image");
-      this.prevImg = document.querySelector("#prev-image");
+      console.log("component attached");
+      this.currImg = this.el.querySelector("#curr-image");
+      this.prevImg = this.el.querySelector("#prev-image");
 
       /* var nextButton = document.querySelector("#box-red");
       var prevButton = document.querySelector("#box-blue"); */
       this.nextButton = this.el.querySelector("#box-red");
       this.prevButton = this.el.querySelector("#box-blue");
+
       this.pageCount = 0;
 
       this.prevClick = this.prevClick.bind(this);
@@ -29,8 +32,8 @@ function inject_createViewer() {
       this.imageArray[3] = new Image();
       this.imageArray[3].src = "images/books/test_4.jpg";
 
-      nextButton.addEventListener("click", this.prevClick);
-      prevButton.addEventListener("click", this.nextClick);
+      this.nextButton.addEventListener("click", this.prevClick);
+      this.prevButton.addEventListener("click", this.nextClick);
     },
 
     prevClick: function (event) {
@@ -70,20 +73,13 @@ function inject_createViewer() {
       // Do something on every scene tick or frame.
     },
   });
-  let assets = document.querySelector("a-assets");
 
-  let imageViewerTemplate = document.createElement("template");
+  /* let menuEntity = document.createElement("a-entity");
 
-  imageViewerTemplate.id = "image-viewer";
-  let menuEntity = document.createElement("a-entity");
-
-  menuEntity.setAttribute("image-panel");
+  menuEntity.setAttribute("image-panel-viewer");
+  menuEntity.setAttribute("id", "imagepanel");
   menuEntity.innerHTML =
-    "<a-image id='curr-image' src='/images/books/test_2.jpg' position='0.55 2 0'></a-image> <a-image id='prev-image' src='/images/books/test_1.jpg' position='-0.55 2 0'></a-image><a-entity id='box-blue' geometry='primitive: box' material='color: blue' position='0.7 2 0' scale='0.2 0.2 0.2'></a-entity><a-entity id='box-red' geometry='primitive: box' material='color: red' position='-0.7 2 0' scale='0.2 0.2 0.2'></a-entity>";
-
-  imageViewerTemplate.content.appendChild(menuEntity);
-
-  assets.appendChild(imageViewerTemplate);
+    "<a-image id='curr-image' src='/images/books/test_2.jpg' position='0.55 2 0'></a-image> <a-image id='prev-image' src='/images/books/test_1.jpg' position='-0.55 2 0'></a-image><a-entity id='box-blue' geometry='primitive: box' material='color: blue' position='0.7 2 0' scale='0.2 0.2 0.2'></a-entity><a-entity id='box-red' geometry='primitive: box' material='color: red' position='-0.7 2 0' scale='0.2 0.2 0.2'></a-entity>"; */
 }
 
 inject_createViewer();
@@ -92,10 +88,13 @@ function mod_addViewer() {
   if (document.querySelector("a-entity[image-panel-viewer]") == null) {
     var el = document.createElement("a-entity");
     el.setAttribute("id", "imagepanel");
+    el.setAttribute("image-panel-viewer", "");
+    el.innerHTML =
+      "<a-image id='curr-image' src='/images/books/test_2.jpg' position='0.55 2 0'></a-image> <a-image id='prev-image' src='/images/books/test_1.jpg' position='-0.55 2 0'></a-image><a-entity id='box-blue' geometry='primitive: box' material='color: blue' position='0.7 2 0' scale='0.2 0.2 0.2'></a-entity><a-entity id='box-red' geometry='primitive: box' material='color: red' position='-0.7 2 0' scale='0.2 0.2 0.2'></a-entity>";
     AFRAME.scenes[0].appendChild(el);
-
     console.log("added image-panel-viewer");
   } else {
     console.log("image-panel-viewer alreadye exists");
   }
 }
+
