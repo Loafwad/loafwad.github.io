@@ -21,16 +21,20 @@ function inject_createViewer() {
 
       this.imageArray = new Array();
       this.imageArray[0] = new Image();
-      this.imageArray[0].src = "images/books/test_1.jpg";
+      this.imageArray[0].src =
+        "https://ih0.redbubble.net/image.974952917.5031/flat,1000x1000,075,f.u8.jpg";
 
       this.imageArray[1] = new Image();
-      this.imageArray[1].src = "images/books/test_2.jpg";
+      this.imageArray[1].src =
+        "https://www.andeo-shop.com/10193-thickbox_default/lodes-random-single.jpg";
 
       this.imageArray[2] = new Image();
-      this.imageArray[2].src = "images/books/test_3.jpg";
+      this.imageArray[2].src =
+        "https://www.andeo-shop.com/10192-thickbox_default/lodes-random-single.jpg";
 
       this.imageArray[3] = new Image();
-      this.imageArray[3].src = "images/books/test_4.jpg";
+      this.imageArray[3].src =
+        "https://image.winudf.com/v2/image/b3JnLmdyZWguZ2Z4Z2VubmV3X3NjcmVlbl8wXzE1Mzc5MDU2MDRfMDk1/screen-0.jpg?fakeurl=1&type=.jpg";
 
       this.nextButton.addEventListener("click", this.prevClick);
       this.prevButton.addEventListener("click", this.nextClick);
