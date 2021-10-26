@@ -38,6 +38,9 @@ function inject_createViewer() {
 
       this.nextButton.addEventListener("click", this.prevClick);
       this.prevButton.addEventListener("click", this.nextClick);
+      
+      this.currImg.setAttribute("src", this.imageArray[0]);
+      this.prevImg.setAttribute("src", this.imageArray[0]);
     },
 
     prevClick: function (event) {
