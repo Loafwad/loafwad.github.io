@@ -36,9 +36,9 @@ function inject_createViewer() {
       this.imageArray[3].src =
         "https://image.winudf.com/v2/image/b3JnLmdyZWguZ2Z4Z2VubmV3X3NjcmVlbl8wXzE1Mzc5MDU2MDRfMDk1/screen-0.jpg?fakeurl=1&type=.jpg";
 
-      this.nextButton.addEventListener("click", this.prevClick);
-      this.prevButton.addEventListener("click", this.nextClick);
-      
+      this.nextButton.object3D.addEventListener("click", this.prevClick);
+      this.prevButton.object3D.addEventListener("click", this.nextClick);
+
       this.currImg.setAttribute("src", this.imageArray[0]);
       this.prevImg.setAttribute("src", this.imageArray[0]);
     },
@@ -104,4 +104,3 @@ function mod_addViewer() {
     console.log("image-panel-viewer alreadye exists");
   }
 }
-
