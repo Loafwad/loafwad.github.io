@@ -4,6 +4,7 @@ function inject_createViewer() {
   /* const entity = document.createElement("a-entity");
   entity.setAttribute("image-panel-viewer", "");
   AFRAME.scenes[0].appendChild(entity); */
+
   mod_addViewer();
 
   AFRAME.registerComponent("image-panel-viewer", {
@@ -94,13 +95,20 @@ inject_createViewer();
 function mod_addViewer() {
   if (document.querySelector("a-entity[image-panel-viewer]") == null) {
     var el = document.createElement("a-entity");
+    let assets = document.querySelector("a-assets");
+    let newTemplate = document.createElement("template");
+    newTemplate.id = "image-panel-viewer";
+
     el.setAttribute("id", "imagepanel");
     el.setAttribute("image-panel-viewer", "");
     el.setAttribute("class", "ui interactable-ui hover-container");
     el.setAttribute("hoverable-visuals", "");
     el.innerHTML =
-      "<a-image id='curr-image' src='' position='0.55 2 0'></a-image> <a-image id='prev-image' src='' position='-0.55 2 0'></a-image><a-entity id='box-blue' geometry='primitive: box' material='color: blue' position='0.7 2 0' scale='0.2 0.2 0.2'></a-entity><a-entity id='box-red' geometry='primitive: box' material='color: red' position='-0.7 2 0' scale='0.2 0.2 0.2'></a-entity>";
-    AFRAME.scenes[0].appendChild(el);
+      "<a-image id='curr-image' src='' position='0.55 2 0'></a-image> <a-image id='prev-image' src='' position='-0.55 2 0'></a-image><a-entity id='box-blue' geometry='primitive: box' material='color: blue' position='0.7 2 0' scale='0.2 0.2 0.2'></a-entity><a-entity id='box-red' geometry='primitive: box' material='color: red' position='-0.7 2 0' scale='0.2 0.2 0.2'></ a-entity>";
+    /* AFRAME.scenes[0].appendChild(el); */
+    newTemplate.content.appendChild(el);
+
+    assets.appendChild(newTemplate);
     console.log("added image-panel-viewer");
   } else {
     console.log("image-panel-viewer alreadye exists");
