@@ -22,8 +22,8 @@ function inject_createViewer() {
       this.nextButton = this.el.querySelector("#box-red");
       this.prevButton = this.el.querySelector("#box-blue");
 
-      this.nextButton.object3D.addEventListener("interact", this.onNext);
-      this.prevButton.object3D.addEventListener("interact", this.onPrev);
+      this.el.object3D.nextButton.addEventListener("click", this.onNext);
+      this.el.object3D.prevButton.addEventListener("click", this.onPrev);
 
       this.pageCount = 0;
 
