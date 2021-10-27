@@ -1,11 +1,19 @@
 function inject_createViewer() {
   console.log("//////// injected viewer ////////");
+
+  /* const entity = document.createElement("a-entity");
+  entity.setAttribute("image-panel-viewer", "");
+  AFRAME.scenes[0].appendChild(entity); */
+  mod_addViewer();
+
   AFRAME.registerComponent("image-panel-viewer", {
     schema: {},
-
-    init: function () {
+    init() {
       // Do something when component first attached.
       console.log("component attached");
+      this.onNext = this.onNext.bind(this);
+      this.onPrev = this.onPrev.bind(this);
+
       this.currImg = this.el.querySelector("#curr-image");
       this.prevImg = this.el.querySelector("#prev-image");
 
@@ -14,32 +22,35 @@ function inject_createViewer() {
       this.nextButton = this.el.querySelector("#box-red");
       this.prevButton = this.el.querySelector("#box-blue");
 
-      this.pageCount = 0;
+      this.nextButton.object3D.addEventListener("interact", this.onNext);
+      this.prevButton.object3D.addEventListener("interact", this.onPrev);
 
-      this.prevClick = this.prevClick.bind(this);
-      this.nextClick = this.nextClick.bind(this);
+      this.pageCount = 0;
 
       this.imageArray = new Array();
       this.imageArray[0] = new Image();
-      this.imageArray[0].src = "images/books/test_1.jpg";
+      this.imageArray[0].src =
+        "https://loafwad.github.io/images/books/test_1.jpg";
 
       this.imageArray[1] = new Image();
-      this.imageArray[1].src = "images/books/test_2.jpg";
+      this.imageArray[1].src =
+        "https://loafwad.github.io/images/books/test_2.jpg";
 
       this.imageArray[2] = new Image();
-      this.imageArray[2].src = "images/books/test_3.jpg";
+      this.imageArray[2].src =
+        "https://loafwad.github.io/images/books/test_3.jpg";
 
       this.imageArray[3] = new Image();
-      this.imageArray[3].src = "images/books/test_4.jpg";
+      this.imageArray[3].src =
+        "https://loafwad.github.io/images/books/test_4.jpg";
 
-      this.nextButton.object3D.addEventListener("click", this.prevClick);
-      this.prevButton.object3D.addEventListener("click", this.nextClick);
+      this.update();
 
-      this.currImg.setAttribute("src", this.imageArray[0]);
-      this.prevImg.setAttribute("src", this.imageArray[0]);
+      this.currImg.setAttribute("src", this.imageArray[1].src);
+      this.prevImg.setAttribute("src", this.imageArray[0].src);
     },
 
-    prevClick: function (event) {
+    onPrev() {
       console.log("prev page");
 
       /* this.currImg.setAttribute("src", this.imageArray[1].src); */
@@ -52,7 +63,7 @@ function inject_createViewer() {
       this.currImg.setAttribute("src", this.imageArray[this.pageCount + 1].src);
     },
 
-    nextClick: function (event) {
+    onNext() {
       console.log("next page");
 
       if (this.pageCount + 1 >= this.imageArray.length - 1) {
@@ -76,13 +87,6 @@ function inject_createViewer() {
       // Do something on every scene tick or frame.
     },
   });
-
-  /* let menuEntity = document.createElement("a-entity");
-
-  menuEntity.setAttribute("image-panel-viewer");
-  menuEntity.setAttribute("id", "imagepanel");
-  menuEntity.innerHTML =
-    "<a-image id='curr-image' src='/images/books/test_2.jpg' position='0.55 2 0'></a-image> <a-image id='prev-image' src='/images/books/test_1.jpg' position='-0.55 2 0'></a-image><a-entity id='box-blue' geometry='primitive: box' material='color: blue' position='0.7 2 0' scale='0.2 0.2 0.2'></a-entity><a-entity id='box-red' geometry='primitive: box' material='color: red' position='-0.7 2 0' scale='0.2 0.2 0.2'></a-entity>"; */
 }
 
 inject_createViewer();
@@ -95,7 +99,7 @@ function mod_addViewer() {
     el.setAttribute("class", "interactable");
     el.setAttribute("hoverable-visuals", "");
     el.innerHTML =
-      "<a-image id='curr-image' src='images/books/test_1.jpg' position='0.55 2 0'></a-image> <a-image id='prev-image' src='images/books/test_2.jpg' position='-0.55 2 0'></a-image><a-entity id='box-blue' geometry='primitive: box' material='color: blue' position='0.7 2 0' scale='0.2 0.2 0.2'></a-entity><a-entity id='box-red' geometry='primitive: box' material='color: red' position='-0.7 2 0' scale='0.2 0.2 0.2'></a-entity>";
+      "<a-image id='curr-image' src='' position='0.55 2 0'></a-image> <a-image id='prev-image' src='' position='-0.55 2 0'></a-image><a-entity id='box-blue' geometry='primitive: box' material='color: blue' position='0.7 2 0' scale='0.2 0.2 0.2'></a-entity><a-entity id='box-red' geometry='primitive: box' material='color: red' position='-0.7 2 0' scale='0.2 0.2 0.2'></a-entity>";
     AFRAME.scenes[0].appendChild(el);
     console.log("added image-panel-viewer");
   } else {
