@@ -96,7 +96,7 @@ function mod_addViewer() {
     var el = document.createElement("a-entity");
     el.setAttribute("id", "imagepanel");
     el.setAttribute("image-panel-viewer", "");
-    el.setAttribute("class", "interactable");
+    el.setAttribute("class", "ui interactable-ui hover-container");
     el.setAttribute("hoverable-visuals", "");
     el.innerHTML =
       "<a-image id='curr-image' src='' position='0.55 2 0'></a-image> <a-image id='prev-image' src='' position='-0.55 2 0'></a-image><a-entity id='box-blue' geometry='primitive: box' material='color: blue' position='0.7 2 0' scale='0.2 0.2 0.2'></a-entity><a-entity id='box-red' geometry='primitive: box' material='color: red' position='-0.7 2 0' scale='0.2 0.2 0.2'></a-entity>";
