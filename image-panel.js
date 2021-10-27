@@ -1,10 +1,6 @@
 function inject_createViewer() {
   console.log("//////// injected viewer ////////");
 
-  /* const entity = document.createElement("a-entity");
-  entity.setAttribute("image-panel-viewer", "");
-  AFRAME.scenes[0].appendChild(entity); */
-
   mod_addViewer();
 
   AFRAME.registerComponent("image-panel-viewer", {
@@ -20,55 +16,41 @@ function inject_createViewer() {
 
       /* var nextButton = document.querySelector("#box-red");
       var prevButton = document.querySelector("#box-blue"); */
-      this.nextButton = this.el.querySelector("#box-red");
-      this.prevButton = this.el.querySelector("#box-blue");
+      this.nextButton = this.el.querySelector(".next-button");
+      this.prevButton = this.el.querySelector(".prev-button");
 
       this.nextButton.object3D.addEventListener("interact", this.onNext);
       this.prevButton.object3D.addEventListener("interact", this.onPrev);
+      console.log("added event listeners");
 
       this.pageCount = 0;
 
       this.imageArray = new Array();
       this.imageArray[0] = new Image();
       this.imageArray[0].src =
-        "https://loafwad.github.io/images/books/test_1.jpg";
+        "https://loafwad.github.io/images/TestPDF2-1.jpg";
 
       this.imageArray[1] = new Image();
       this.imageArray[1].src =
-        "https://loafwad.github.io/images/books/test_2.jpg";
+        "https://loafwad.github.io/images/TestPDF2-2.jpg";
 
       this.imageArray[2] = new Image();
       this.imageArray[2].src =
-        "https://loafwad.github.io/images/books/test_3.jpg";
+        "https://loafwad.github.io/images/TestPDF2-3.jpg";
 
       this.imageArray[3] = new Image();
       this.imageArray[3].src =
-        "https://loafwad.github.io/images/books/test_4.jpg";
-
-      this.update();
+        "https://loafwad.github.io/images/TestPDF2-4.jpg";
 
       this.currImg.setAttribute("src", this.imageArray[1].src);
       this.prevImg.setAttribute("src", this.imageArray[0].src);
-    },
-
-    onPrev() {
-      console.log("prev page");
-
-      /* this.currImg.setAttribute("src", this.imageArray[1].src); */
-      if (this.pageCount > 0) {
-        this.pageCount--;
-      } else if (this.pageCount <= 0) {
-        this.pageCount = this.imageArray.length - 2;
-      }
-      this.prevImg.setAttribute("src", this.imageArray[this.pageCount].src);
-      this.currImg.setAttribute("src", this.imageArray[this.pageCount + 1].src);
     },
 
     onNext() {
       console.log("next page");
 
       if (this.pageCount + 1 >= this.imageArray.length - 1) {
-        this.pageCount = 0;
+        return;
       } else {
         this.pageCount++;
       }
@@ -76,16 +58,16 @@ function inject_createViewer() {
       this.currImg.setAttribute("src", this.imageArray[this.pageCount + 1].src);
     },
 
-    update: function () {
-      // Do something when component's data is updated.
-    },
+    onPrev() {
+      console.log("prev page");
 
-    remove: function () {
-      // Do something the component or its entity is detached.
-    },
-
-    tick: function (time, timeDelta) {
-      // Do something on every scene tick or frame.
+      if (this.pageCount <= 0) {
+        return;
+      } else {
+        this.pageCount--;
+      }
+      this.prevImg.setAttribute("src", this.imageArray[this.pageCount].src);
+      this.currImg.setAttribute("src", this.imageArray[this.pageCount + 1].src);
     },
   });
 }
@@ -93,22 +75,21 @@ function inject_createViewer() {
 inject_createViewer();
 
 function mod_addViewer() {
-  if (document.querySelector("a-entity[image-panel-viewer]") == null) {
-    var el = document.createElement("a-entity");
-    let assets = document.querySelector("a-assets");
-    let newTemplate = document.createElement("template");
-    newTemplate.id = "image-panel-viewer";
+  if (document.querySelector("a-entity [image-panel-viewer]") == null) {
+    var newEntity = document.createElement("a-entity");
 
-    el.setAttribute("id", "imagepanel");
-    el.setAttribute("image-panel-viewer", "");
-    el.setAttribute("class", "ui interactable-ui hover-container");
-    el.setAttribute("hoverable-visuals", "");
-    el.innerHTML =
-      "<a-image id='curr-image' src='' position='0.55 2 0'></a-image> <a-image id='prev-image' src='' position='-0.55 2 0'></a-image><a-entity id='box-blue' geometry='primitive: box' material='color: blue' position='0.7 2 0' scale='0.2 0.2 0.2'></a-entity><a-entity id='box-red' geometry='primitive: box' material='color: red' position='-0.7 2 0' scale='0.2 0.2 0.2'></ a-entity>";
-    /* AFRAME.scenes[0].appendChild(el); */
-    newTemplate.content.appendChild(el);
+    newEntity.setAttribute("class", "ui interactable-ui hover-container");
+    newEntity.setAttribute("image-panel-viewer", "");
+    newEntity.setAttribute("visible", true);
 
-    assets.appendChild(newTemplate);
+    newEntity.setAttribute("hoverable-visuals", "");
+    newEntity.setAttribute("listed-media", "");
+    newEntity.innerHTML =
+      "<a-image id='curr-image' src='' position='0.45 2 0' width='0.8'></a-image> <a-image id='prev-image' src='' position='-0.45 2 0' width='0.8'></a-image><a-entity id='box-blue' class='next-button' is-remote-hover-target tags='singleActionButton:true; isHoverMenuChild: true;' geometry='primitive: box' material='color: blue' position='0.9 2 0' scale='0.2 0.2 0.2'></a-entity> <a-entity id='box-red' class='prev-button' is-remote-hover-target tags='singleActionButton:true; isHoverMenuChild: true;' geometry='primitive: box' material='color: red' position='-0.9 2 0' scale='0.2 0.2 0.2'></ a-entity>";
+    newEntity.object3D.position.y = -0.5;
+    newEntity.object3D.rotation.x = -0.35;
+    AFRAME.scenes[0].appendChild(newEntity);
+
     console.log("added image-panel-viewer");
   } else {
     console.log("image-panel-viewer alreadye exists");
