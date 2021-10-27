@@ -25,25 +25,10 @@ function inject_createViewer() {
 
       this.pageCount = 0;
 
-      this.imageArray = new Array();
-      this.imageArray[0] = new Image();
-      this.imageArray[0].src =
-        "https://loafwad.github.io/images/TestPDF2-1.jpg";
+      this.imageArray = bookTest.pages;
 
-      this.imageArray[1] = new Image();
-      this.imageArray[1].src =
-        "https://loafwad.github.io/images/TestPDF2-2.jpg";
-
-      this.imageArray[2] = new Image();
-      this.imageArray[2].src =
-        "https://loafwad.github.io/images/TestPDF2-3.jpg";
-
-      this.imageArray[3] = new Image();
-      this.imageArray[3].src =
-        "https://loafwad.github.io/images/TestPDF2-4.jpg";
-
-      this.currImg.setAttribute("src", this.imageArray[1].src);
-      this.prevImg.setAttribute("src", this.imageArray[0].src);
+      this.currImg.setAttribute("src", this.imageArray[1]);
+      this.prevImg.setAttribute("src", this.imageArray[0]);
     },
 
     onNext() {
@@ -54,8 +39,8 @@ function inject_createViewer() {
       } else {
         this.pageCount++;
       }
-      this.prevImg.setAttribute("src", this.imageArray[this.pageCount].src);
-      this.currImg.setAttribute("src", this.imageArray[this.pageCount + 1].src);
+      this.prevImg.setAttribute("src", this.imageArray[this.pageCount]);
+      this.currImg.setAttribute("src", this.imageArray[this.pageCount + 1]);
     },
 
     onPrev() {
@@ -66,13 +51,17 @@ function inject_createViewer() {
       } else {
         this.pageCount--;
       }
-      this.prevImg.setAttribute("src", this.imageArray[this.pageCount].src);
-      this.currImg.setAttribute("src", this.imageArray[this.pageCount + 1].src);
+      this.prevImg.setAttribute("src", this.imageArray[this.pageCount]);
+      this.currImg.setAttribute("src", this.imageArray[this.pageCount + 1]);
     },
   });
 }
 
 inject_createViewer();
+
+/* function mod_changeBook(bookName) {
+  this.imageArray = bookName.pages;
+} */
 
 function mod_addViewer() {
   if (document.querySelector("a-entity [image-panel-viewer]") == null) {
